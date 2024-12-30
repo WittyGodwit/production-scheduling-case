@@ -17,7 +17,7 @@ The MIP model addresses the following key components of production scheduling:
 ### 2.Variables
 **Production-dependent**
 - $n_{ijk}$: Amount of part $j$ to be produced on machine $i$ in week $k$.
-- $b_{ijk}$: Indicating whether to produce part $j$ on machine $i$ in week $k$.
+- $b_{ijk}$: Indicate whether to produce part $j$ on machine $i$ in week $k$.
 
 $$n_{ijk} \\geq 0, \\quad n_{ijk} \\in \\mathbb{Z}, \\quad \\forall i, j, k$$
 $$b_{ijk} \\in \\{ 0, 1 \\}, \\quad \\forall i, j, k$$
@@ -30,7 +30,7 @@ $$p_{jk}, t_{jk} \\geq 0, \\quad p_{jk}, t_{jk} \\in \\mathbb{Z},  \\quad \\fora
 
 **Time-dependent**
 - $h_{ik}$: Duration of machine $i$ operating in week $k$.
-- $v_{ik}$: Duration of Overtime of machine $i$ operating in week $k$.
+- $v_{ik}$: Duration of overtime of machine $i$ operating in week $k$.
 - $e_{ik}$: Duration exceeding maximum overtime of machine $i$ operating in week $k$.
 - $w_k$: Max duration among all machines operating in week $k$.
 
@@ -60,7 +60,15 @@ $$\\sum_k \\sum_i n_{ijk} \\geq \\sum_k D_{kj}, \\quad \\forall j, k$$
 **Inventory-dependent**
 - Backlog from the previous week is carried over into the current week, while the stock from the previous week satisfies the demand for the current week.
 
-$$\\sum_i n_{ijk} + p_{jk} + t_{i(k-1)} \\geq D_{kj} + p_{i(k-1)} + t_{jk}, \\quad \\forall j, k$$
+$$\\sum_i n_{ijk} + p_{jk} + t_{j(k-1)} \\geq D_{kj} + p_{j(k-1)} + t_{jk}, \\quad \\forall j, k \\neq \\text{first, last}$$
+
+- There is no backlog or stock before the first week.
+
+$$\sum_i n_{ijk} + p_{jk} \geq D_{kj} + t_{jk}, \quad \forall j, k = \\text{first}$$
+
+- There is no backlog or stock in the last week.
+
+$$\sum_i n_{ijk} + t_{j(k-1)} \geq D_{kj} + p_{j(k-1)}, \quad \forall j, k = \\text{last}$$
 
 **Time-dependent**
 - Total working time is required for production and setup.
