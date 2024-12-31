@@ -231,7 +231,7 @@ To run the MIP model, ensure you have the following:
      - Yield rate.
      - Setup time.
      - Demand.
-     - Cost.
+     - Cost(weight and priority).
 
 **2. Run the Model**  
    - Open the terminal and navigate to the repository folder.
